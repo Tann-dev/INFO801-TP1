@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <label for="borne">Choix caisse</label>
+    <input name="body" type="number" onchange="choixCaisse()" id="choixCaisse">
+
+    <div style="display: none;" id="borne">
+        <span><p>Carburant : </p><p id="carburant"></p></span>
+        <label for="code">Code : </label>
+        <input type="text" name="code" id="code">
+        <button onclick="submit()">Submit</button>
+    </div>
+
+
+</body>
+<script>
+    function choixCaisse() {
+        let req = new XMLHttpRequest()
+        req.addEventListener("load", (s) => {
+            let res = JSON.parse(req.responseText)
+            console.log(res)
+            document.getElementById("carburant").innerText = res.data
+            document.getElementById("borne").style["display"] = "block"
+        });
+        req.open("GET", "http://localhost:3000/borne/" + document.getElementById("choixCaisse").value);
+        req.send();
+    }
+
+    function submit() {
+        
+    }
+</script>
+</html>
