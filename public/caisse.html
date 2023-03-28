@@ -15,21 +15,22 @@
         <option value="SP95">SP95</option>
         <option value="SP98">SP98</option>
     </select>
-    <label for="qte"> Quantité du carburant en L</label>
+    <label for="qte">Quantité du carburant en L</label>
     <input type="number" name="qte" id="qte">
     <button onclick="submit()">Submit</button>
     <p id="code"></p>
 </body>
 <script>
     function submit() {
-        let req = new XMLHttpRequest()
-        req.addEventListener("load", (res) => {
-            let data = JSON.parse(req.responseText)
-            document.getElementById("code").innerText = "code : " + data.code
-        });
-        req.open("POST", "http://localhost:3000/code");
-        req.send({carburant:document.getElementById("carburant").value,
-        qte:document.getElementById("qte").value});
+        let body = {carburant:document.getElementById("carburant").value,
+        qte:Number(document.getElementById("qte").value)}
+        fetch("http://localhost:3000/code",{
+            method:"POST",
+            body:JSON.stringify(body),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then((response) => response.json()).then((json) => document.getElementById("code").innerText = json.code)
     }
 </script>
 </html>

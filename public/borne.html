@@ -15,8 +15,12 @@
         <span><p>Carburant : </p><p id="carburant"></p></span>
         <label for="code">Code : </label>
         <input type="text" name="code" id="code">
+        <label for="qte">Quantité (en Litre) : </label>
+        <input type="number" name="qte" id="qte">
         <button onclick="submit()">Submit</button>
     </div>
+
+    <p id="result"></p>
 
 
 </body>
@@ -25,7 +29,6 @@
         let req = new XMLHttpRequest()
         req.addEventListener("load", (s) => {
             let res = JSON.parse(req.responseText)
-            console.log(res)
             document.getElementById("carburant").innerText = res.data
             document.getElementById("borne").style["display"] = "block"
         });
@@ -34,7 +37,17 @@
     }
 
     function submit() {
-        
+        let code = Number(document.getElementById("code").value)
+        let qte = Number(document.getElementById("qte").value)
+        let born = Number(document.getElementById("choixCaisse").value)
+        let body = {code:code, qte:qte, born:born}
+        fetch("http://localhost:3000/commande",{
+            method:"POST",
+            body:JSON.stringify(body),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then((response) => response.text()).then((txt) => document.getElementById("result").innerText = txt)
     }
 </script>
 </html>
