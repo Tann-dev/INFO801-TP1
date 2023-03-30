@@ -6,25 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+        }
+
+        .form-component {
+            margin: 15px;
+        }
+
+        .flex-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
-    <a href="http://localhost:3000">Aller à l'accueil</a>
-    <a href="http://localhost:3000/caisse">Aller à la caisse</a>
-    <label for="borne">Choix caisse</label>
-    <input name="body" type="number" onchange="choixCaisse()" id="choixCaisse">
+    <div class="main-container">
+        <h1>Borne</h1>
+        <div>
+            <a href="http://localhost:3000">Aller à l'accueil</a>
+            ||
+            <a href="http://localhost:3000/caisse">Aller à la caisse</a>
+        </div>
 
-    <div style="display: none;" id="borne">
-        <span><p>Carburant : </p><p id="carburant"></p></span>
-        <label for="code">Code : </label>
-        <input type="text" name="code" id="code">
-        <label for="qte">Quantité (en Litre) : </label>
-        <input type="number" name="qte" id="qte">
-        <button onclick="submit()">Submit</button>
+        <div class="form-component">
+            <label for="borne">Choix caisse</label>
+            <input name="body" type="number" onchange="choixCaisse()" id="choixCaisse">
+        </div>
+
+        <div class="flex-container" style="display: none;" id="borne">
+            <div class="form-component flex-container">
+                <p>Carburant : </p>
+                <p id="carburant"></p>
+            </div>
+            
+            <div class="form-component">
+                <label for="code">Code : </label>
+                <input type="text" name="code" id="code">
+            </div>
+            
+            <div class="form-component">
+                <label for="qte">Quantité (en Litre) : </label>
+                <input type="number" name="qte" id="qte">
+            </div>
+            
+            <button onclick="submit()">Submit</button>
+        </div>
+        <p id="result"></p>
     </div>
-
-    <p id="result"></p>
-
-
 </body>
 <script>
     function choixCaisse() {
@@ -32,7 +73,7 @@
         req.addEventListener("load", (s) => {
             let res = JSON.parse(req.responseText)
             document.getElementById("carburant").innerText = res.data
-            document.getElementById("borne").style["display"] = "block"
+            document.getElementById("borne").style["display"] = "flex"
         });
         req.open("GET", "http://localhost:3000/borne/" + document.getElementById("choixCaisse").value);
         req.send();

@@ -6,21 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+        }
+
+        .form-component {
+            margin: 15px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Caisse</h1>
-    <a href="http://localhost:3000">Aller à l'accueil</a>
-    <a href="http://localhost:3000/borne">Aller aux bornes</a>
-    <label for="carburant">Carburant</label>
-    <select name="carburant" id="carburant">
-        <option value="Gazoil">Gazoil</option>
-        <option value="SP95">SP95</option>
-        <option value="SP98">SP98</option>
-    </select>
-    <label for="qte">Quantité du carburant en L</label>
-    <input type="number" name="qte" id="qte">
-    <button onclick="submit()">Submit</button>
-    <p id="code"></p>
+    <div class="main-container">
+        <h1>Caisse</h1>
+        <div>
+            <a href="http://localhost:3000">Aller à l'accueil</a>
+            ||
+            <a href="http://localhost:3000/borne">Aller aux bornes</a>
+        </div>
+        <div class="form-component">
+            <label for="carburant">Carburant</label>
+            <select name="carburant" id="carburant">
+                <option value="Gazoil">Gazoil</option>
+                <option value="SP95">SP95</option>
+                <option value="SP98">SP98</option>
+            </select>
+        </div>
+        <div class="form-component">
+            <label for="qte">Quantité du carburant en L</label>
+            <input type="number" name="qte" id="qte">
+        </div>
+        <button onclick="submit()">Submit</button>
+        <p id="code" class="form-component"></p>
+    </div>
 </body>
 <script>
     function submit() {
@@ -32,7 +59,7 @@
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
-        }).then((response) => response.json()).then((json) => document.getElementById("code").innerText = json.code)
+        }).then((response) => response.json()).then((json) => document.getElementById("code").innerText = "Votre code : " + json.code)
     }
 </script>
 </html>

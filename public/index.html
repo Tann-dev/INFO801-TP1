@@ -4,10 +4,29 @@
   <meta charset="UTF-8">
   <title>Sample Site</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        justify-content: center;
+    }
+  </style>
 </head>
 <body>
+  <div class="main-container">
     <h1>PompaBagnole</h1>
-    <a href="http://localhost:3000/caisse">Aller à la caisse</a>
-    <a href="http://localhost:3000/borne">Aller aux bornes</a>
+    <div>
+      <a href="http://localhost:3000/caisse">Aller à la caisse</a>
+      ||
+      <a href="http://localhost:3000/borne">Aller aux bornes</a>
+    </div>
+  </div>
 </body>
 </html>
